@@ -30,5 +30,5 @@ RDA Europe spring school on weather, climate and air quality
 
 ##Reprovision:
 If something changes in the vagrant configuration and you need to reprovision, 
- run `vagrant up provision`
+ run `vagrant up --provision`
 
