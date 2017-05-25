@@ -53,14 +53,7 @@ wget::fetch {  'spark':
 exec {'unpack_spark':
   unless => 'test -f /home/ubuntu/spark',
   cwd => '/home/ubuntu',
-  command => 'tar xzf /home/ubuntu/downloads/spark-2.1.1-bin-hadoop2.7.tgz',
-}
-
-exec {'mv_spark':
-  unless => 'test -f /home/ubuntu/spark',
-  cwd => '/home/ubuntu',
-  command => 'mv spark-2.1.1-bin-hadoop2.7 spark; chown -R ubuntu: spark || :',
-  require => Exec['unpack_spark'],
+  command => 'tar xzf /home/ubuntu/downloads/spark-2.1.1-bin-hadoop2.7.tgz; mv spark-2.1.1-bin-hadoop2.7 spark; chown -R ubuntu: spark || :',
 }
 
 wget::fetch {  'donation':
