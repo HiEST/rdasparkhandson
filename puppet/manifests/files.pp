@@ -51,9 +51,16 @@ wget::fetch {  'spark':
 }
 
 exec {'unpack_spark':
-  unless => 'test -f /home/ubuntu/spark-2.1.1-bin-hadoop2.7',
+  unless => 'test -f /home/ubuntu/spark',
   cwd => '/home/ubuntu',
   command => 'tar xzf /home/ubuntu/downloads/spark-2.1.1-bin-hadoop2.7.tgz',
+}
+
+exec {'mv_spark':
+  unless => 'test -f /home/ubuntu/spark',
+  cwd => '/home/ubuntu',
+  command => 'mv spark-2.1.1-bin-hadoop2.7 spark; chown -R ubuntu: spark || :',
+  require => Exec['unpack_spark'],
 }
 
 wget::fetch {  'donation':
@@ -67,7 +74,7 @@ wget::fetch {  'donation':
 exec {'unpack_donation':
   unless => 'test -f /home/ubuntu/datasets/donation',
   cwd => '/home/ubuntu/datasets/donation',
-  command => 'unzip /home/ubuntu/downloads/donation.zip || chown -R ubuntu: * || :',
+  command => 'unzip /home/ubuntu/downloads/donation.zip; chown -R ubuntu: * || :',
 }
 
 wget::fetch {  'csv_husr':
@@ -81,14 +88,15 @@ wget::fetch {  'csv_husr':
 exec {'unpack_csv_hus':
   unless => 'test -f /home/ubuntu/datasets/csv_hus',
   cwd => '/home/ubuntu/datasets/csv_hus',
-  command => 'unzip /home/ubuntu/downloads/csv_hus.zip || chown -R ubuntu: * || :',
+  command => 'unzip /home/ubuntu/downloads/csv_hus.zip; chown -R ubuntu: * || :',
 }
 
 
-file { '/home/ubuntu/spark-2.1.1-bin-hadoop2.7':
-  ensure => 'directory',
-  owner  => 'ubuntu',
-  group  => 'ubuntu',
-  require=> Exec['unpack_spark'],
+file { "/etc/environment":
+          ensure => present,
+          replace => true,
+          owner    => 'root',
+          group    => 'root',          
+          mode     => '0644',
+          source => "/vagrant/puppet/files/environment"
 }
-
