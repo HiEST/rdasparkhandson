@@ -11,11 +11,15 @@ RDA Europe spring school on weather, climate and air quality
   Versions in package repositories may be outdated and be incompatible
   with these scripts
 
+##Slides to follow the session:
+- https://www.dropbox.com/s/631me7hkzipttio/2017-05-26-RDA-Spark.pdf?dl=0
+
 ##Steps to prepare the environment:
 1. Download and install the latest version of VirtualBox
 2. Download and install the latest version of Vagrant
 3. Clone this repository: `git clone git@github.com:HiEST/rdasparkhandson.git`
-4. Run the box
+4. `cd rdasparkhandson` 
+5. Run the box
 
 ##Steps to run the Box:
 1. run `vagrant up`
